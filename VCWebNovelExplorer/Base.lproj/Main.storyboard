@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RGq-XH-EfC">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="RGq-XH-EfC" secondAttribute="height" multiplier="137:15" id="hLY-lg-Ozb"/>
+                                    <constraint firstAttribute="height" constant="30" id="lzV-hi-wNq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hLY-lg-Ozb"/>
+                                        <exclude reference="lzV-hi-wNq"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="hLY-lg-Ozb"/>
+                                        <include reference="lzV-hi-wNq"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="hnt-57-Lc5"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suM-dw-8ww">
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="33" id="Nil-OL-rnr"/>
+                                    <constraint firstAttribute="height" constant="34" id="hHQ-3i-4VB"/>
+                                </constraints>
+                                <state key="normal" image="search"/>
+                                <state key="selected" image="search">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Nil-OL-rnr"/>
+                                        <exclude reference="hHQ-3i-4VB"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Nil-OL-rnr"/>
+                                        <include reference="hHQ-3i-4VB"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="searchButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZrO-3a-cQE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="suM-dw-8ww" firstAttribute="leading" secondItem="RGq-XH-EfC" secondAttribute="trailing" constant="25" id="0yz-Ry-TUd"/>
+                            <constraint firstItem="RGq-XH-EfC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="26" id="F68-cb-p3m"/>
+                            <constraint firstItem="suM-dw-8ww" firstAttribute="centerY" secondItem="RGq-XH-EfC" secondAttribute="centerY" id="Ldl-g7-0Y2"/>
+                            <constraint firstItem="RGq-XH-EfC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="fOM-Z1-74M"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="RGq-XH-EfC"/>
+                                <exclude reference="suM-dw-8ww"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="F68-cb-p3m"/>
+                                <exclude reference="fOM-Z1-74M"/>
+                                <exclude reference="0yz-Ry-TUd"/>
+                                <exclude reference="Ldl-g7-0Y2"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="RGq-XH-EfC"/>
+                                <include reference="suM-dw-8ww"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="F68-cb-p3m"/>
+                                <include reference="fOM-Z1-74M"/>
+                                <include reference="0yz-Ry-TUd"/>
+                                <include reference="Ldl-g7-0Y2"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="searchTextField" destination="RGq-XH-EfC" id="urq-C5-MYe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="678" y="409"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="search" width="64" height="64"/>
+    </resources>
+</document>

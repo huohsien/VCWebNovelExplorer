@@ -1,0 +1,41 @@
+//
+//  PrefixHeader.pch
+//  VCWebNovelExplorer
+//
+//  Created by victor on 10/19/16.
+//  Copyright © 2016 VHHC. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#ifdef NDEBUG
+
+#define VCLOG(...)
+
+#else
+
+#define VCLOG(fmt, ...) \
+{NSString *tmp = @""fmt; \
+if ([tmp length] == 0) { \
+DDLogVerbose((@"%s [Line %d]"), __PRETTY_FUNCTION__, __LINE__); \
+} else { \
+DDLogVerbose((@"%s [Line %d] --- " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
+}}
+
+
+#endif
+
+#ifdef __OBJC__
+
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+#ifdef LOGGING_OFF
+static const DDLogLevel ddLogLevel = DDLogLevelOff;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#endif
+
+#endif
+
+#endif /* PrefixHeader_pch */
