@@ -6,5 +6,6 @@ target 'VCWebNovelExplorer' do
   # use_frameworks!
 
 pod 'CocoaLumberjack'
+pod 'WebViewJavascriptBridge', '~> 5.0'
 
 end
