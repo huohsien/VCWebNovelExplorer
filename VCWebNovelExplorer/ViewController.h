@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-@interface ViewController : UIViewController<UITextFieldDelegate>
+@interface ViewController : UIViewController<UITextFieldDelegate, WKNavigationDelegate, UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
-
+@property (weak, nonatomic) IBOutlet UIView *webViewContainerView;
 @end
 

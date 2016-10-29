@@ -20,12 +20,15 @@
 
     // Initialize logging
     [DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    if (SYSTEM_VERSION_LESS_THAN(@"10")) {
+        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    }
     
     _fileLogger = [[DDFileLogger alloc] init]; // File Logger
     _fileLogger.rollingFrequency = 10 * 60; // 10 mins rolling
     _fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     [DDLog addLogger:_fileLogger];
+    DDLogInfo(@"log file at: %@", [[_fileLogger currentLogFileInfo] filePath]);
 
     return YES;
 }
