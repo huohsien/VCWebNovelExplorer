@@ -12,6 +12,7 @@
 @interface ViewController : UIViewController<UITextFieldDelegate, WKNavigationDelegate, UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
-@property (weak, nonatomic) IBOutlet UIView *webViewContainerView;
+@property (strong, nonatomic) WKWebView *wkWebView;
+@property (strong, nonatomic) NSString *bookName;
 @end
 

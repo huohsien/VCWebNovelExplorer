@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11521.1" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11517.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RGq-XH-EfC">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="校花的贴身高手" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RGq-XH-EfC">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="lzV-hi-wNq"/>
                                 </constraints>
@@ -67,21 +67,14 @@
                                     <action selector="searchButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZrO-3a-cQE"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DO-it-1el">
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="suM-dw-8ww" firstAttribute="leading" secondItem="RGq-XH-EfC" secondAttribute="trailing" constant="25" id="0yz-Ry-TUd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="suM-dw-8ww" secondAttribute="trailing" constant="20" id="BRh-aA-R5K"/>
                             <constraint firstItem="RGq-XH-EfC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="26" id="F68-cb-p3m"/>
-                            <constraint firstItem="9DO-it-1el" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Jcr-pG-Xcc"/>
                             <constraint firstItem="suM-dw-8ww" firstAttribute="centerY" secondItem="RGq-XH-EfC" secondAttribute="centerY" id="Ldl-g7-0Y2"/>
                             <constraint firstItem="RGq-XH-EfC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="fOM-Z1-74M"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9DO-it-1el" secondAttribute="trailing" id="gf9-Lk-SOy"/>
-                            <constraint firstItem="9DO-it-1el" firstAttribute="top" secondItem="RGq-XH-EfC" secondAttribute="bottom" constant="12" id="r35-xl-Kw9"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9DO-it-1el" secondAttribute="bottom" constant="10" id="tVY-7v-hyT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -109,8 +102,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="searchTextField" destination="RGq-XH-EfC" id="urq-C5-MYe"/>
-                        <outlet property="webViewContainerView" destination="9DO-it-1el" id="C9j-HJ-qfL"/>
+                        <outlet property="searchTextField" destination="RGq-XH-EfC" id="ZWf-A2-YOF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
