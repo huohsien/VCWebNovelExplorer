@@ -31,6 +31,7 @@
     [self.view setBackgroundColor:[UIColor clearColor]];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
+    [self.searchTextField becomeFirstResponder];
 
 }
 

@@ -206,7 +206,7 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
     NSMutableString *result = [NSMutableString stringWithCapacity:5000];
     NSRange pRange = NSMakeRange(0, [string length]);
     NSRange endPRange;
-    int skipTimes = 2;
+    int skipTimes = 1;
     
     while (YES) {
         // Determine "<p>" location
@@ -224,8 +224,10 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
                 pRange.location += pRange.length;
                 pRange.length = endPRange.location - pRange.location;
                 
+                NSString *paragraph = [string substringWithRange:pRange];
+                paragraph = [[paragraph componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
                 if (skipTimes == 0) {
-                    [result appendFormat:@"%@",[string substringWithRange:pRange]];
+                    [result appendFormat:@"%@\n", paragraph];
                 } else {
                     skipTimes--;
                 }
