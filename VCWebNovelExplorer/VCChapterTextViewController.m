@@ -15,9 +15,20 @@
 @implementation VCChapterTextViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    BOOL selectable = self.textView.isSelectable;
+    [self.textView setSelectable:YES];
+    
     self.textView.text = self.text;
+    
+    [self.textView setSelectable:selectable];
 }
 
 
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.textView scrollRangeToVisible:NSMakeRange(0,0)];
+}
 @end
