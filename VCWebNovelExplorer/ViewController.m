@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "VCChapterTextViewController.h"
+#import "VCTraditionalSimplifiedChineseExchanger.h"
 
 @interface ViewController ()
 
@@ -104,19 +105,22 @@
     
     VCLOG();
 
-    [self.view endEditing:YES];
+    [self searchButtonClicked:nil];
     return YES;
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
     VCLOG();
-} 
+}
+
 #pragma mark - callbacks
+
 - (IBAction)searchButtonClicked:(id)sender {
     VCLOG();
     
-    NSString *bookName = self.searchTextField.text;
+    NSString *bookName = [VCTraditionalSimplifiedChineseExchanger getSimpleStringFromTraditionString:self.searchTextField.text];
+    self.searchTextField.text = bookName;
     _downloader = [VCWebNovelDownloader downloadBookNamed:bookName];
     [_downloader setDelegate:self];
     [self.view endEditing:YES];
