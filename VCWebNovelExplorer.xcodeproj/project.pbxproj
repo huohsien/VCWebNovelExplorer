@@ -7,19 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		663C4A821DC69F27001A4C04 /* VCChapterTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663C4A811DC69F27001A4C04 /* VCChapterTextViewController.m */; };
 		66B3653C1DB73A5500ED7601 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B3653B1DB73A5500ED7601 /* main.m */; };
 		66B3653F1DB73A5500ED7601 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B3653E1DB73A5500ED7601 /* AppDelegate.m */; };
 		66B365421DB73A5500ED7601 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B365411DB73A5500ED7601 /* ViewController.m */; };
 		66B365451DB73A5500ED7601 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66B365431DB73A5500ED7601 /* Main.storyboard */; };
 		66B365471DB73A5500ED7601 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66B365461DB73A5500ED7601 /* Assets.xcassets */; };
 		66B3654A1DB73A5500ED7601 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66B365481DB73A5500ED7601 /* LaunchScreen.storyboard */; };
-		66BF39A11DB89B6C002511B9 /* ExampleApp.html in Resources */ = {isa = PBXBuildFile; fileRef = 66BF39A01DB89B6C002511B9 /* ExampleApp.html */; };
+		66DE3FB71DC640D100C4161E /* VCWebNovelDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DE3FB61DC640D100C4161E /* VCWebNovelDownloader.m */; };
 		E4E3A8D96C3751F134652DBD /* libPods-VCWebNovelExplorer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8F5910CFE343152EED47E0 /* libPods-VCWebNovelExplorer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1F8F5910CFE343152EED47E0 /* libPods-VCWebNovelExplorer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VCWebNovelExplorer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6609BB941DB7413D009D30E3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		663C4A801DC69F27001A4C04 /* VCChapterTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChapterTextViewController.h; sourceTree = "<group>"; };
+		663C4A811DC69F27001A4C04 /* VCChapterTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChapterTextViewController.m; sourceTree = "<group>"; };
 		66B365371DB73A5500ED7601 /* VCWebNovelExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VCWebNovelExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B3653B1DB73A5500ED7601 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66B3653D1DB73A5500ED7601 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -30,7 +33,8 @@
 		66B365461DB73A5500ED7601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66B365491DB73A5500ED7601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		66B3654B1DB73A5500ED7601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		66BF39A01DB89B6C002511B9 /* ExampleApp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ExampleApp.html; sourceTree = "<group>"; };
+		66DE3FB51DC640D100C4161E /* VCWebNovelDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCWebNovelDownloader.h; sourceTree = "<group>"; };
+		66DE3FB61DC640D100C4161E /* VCWebNovelDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCWebNovelDownloader.m; sourceTree = "<group>"; };
 		EEDC29204F9287BE2A3DDCC2 /* Pods-VCWebNovelExplorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VCWebNovelExplorer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VCWebNovelExplorer/Pods-VCWebNovelExplorer.debug.xcconfig"; sourceTree = "<group>"; };
 		F21DE1DCD93E3E49AFCC821E /* Pods-VCWebNovelExplorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VCWebNovelExplorer.release.xcconfig"; path = "Pods/Target Support Files/Pods-VCWebNovelExplorer/Pods-VCWebNovelExplorer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,11 +80,14 @@
 		66B365391DB73A5500ED7601 /* VCWebNovelExplorer */ = {
 			isa = PBXGroup;
 			children = (
-				66BF39A01DB89B6C002511B9 /* ExampleApp.html */,
 				66B3653D1DB73A5500ED7601 /* AppDelegate.h */,
 				66B3653E1DB73A5500ED7601 /* AppDelegate.m */,
+				66DE3FB51DC640D100C4161E /* VCWebNovelDownloader.h */,
+				66DE3FB61DC640D100C4161E /* VCWebNovelDownloader.m */,
 				66B365401DB73A5500ED7601 /* ViewController.h */,
 				66B365411DB73A5500ED7601 /* ViewController.m */,
+				663C4A801DC69F27001A4C04 /* VCChapterTextViewController.h */,
+				663C4A811DC69F27001A4C04 /* VCChapterTextViewController.m */,
 				66B365431DB73A5500ED7601 /* Main.storyboard */,
 				66B365461DB73A5500ED7601 /* Assets.xcassets */,
 				66B365481DB73A5500ED7601 /* LaunchScreen.storyboard */,
@@ -172,7 +179,6 @@
 				66B3654A1DB73A5500ED7601 /* LaunchScreen.storyboard in Resources */,
 				66B365471DB73A5500ED7601 /* Assets.xcassets in Resources */,
 				66B365451DB73A5500ED7601 /* Main.storyboard in Resources */,
-				66BF39A11DB89B6C002511B9 /* ExampleApp.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,8 +238,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				66B365421DB73A5500ED7601 /* ViewController.m in Sources */,
+				663C4A821DC69F27001A4C04 /* VCChapterTextViewController.m in Sources */,
 				66B3653F1DB73A5500ED7601 /* AppDelegate.m in Sources */,
 				66B3653C1DB73A5500ED7601 /* main.m in Sources */,
+				66DE3FB71DC640D100C4161E /* VCWebNovelDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

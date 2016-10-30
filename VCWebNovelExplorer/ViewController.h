@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
+#import "VCWebNovelDownloader.h"
 
-@interface ViewController : UIViewController<UITextFieldDelegate, WKNavigationDelegate, UIWebViewDelegate>
+
+@interface ViewController : UIViewController<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, VCWebNovelDownloaderDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
-@property (strong, nonatomic) WKWebView *wkWebView;
-@property (strong, nonatomic) NSString *bookName;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 

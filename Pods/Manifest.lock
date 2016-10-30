@@ -7,16 +7,13 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.3.0):
     - CocoaLumberjack/Default
-  - WebViewJavascriptBridge (5.0.5)
 
 DEPENDENCIES:
   - CocoaLumberjack
-  - WebViewJavascriptBridge (~> 5.0)
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
-  WebViewJavascriptBridge: a4d502315f1b8d9a51cd6a9174147ed567ec3bc5
 
-PODFILE CHECKSUM: 67a01673d1f3f61a4d13000158907e3e577b0c05
+PODFILE CHECKSUM: d4bb99626f05a8be6ba6478fe4daa5db07c48dde
 
 COCOAPODS: 1.1.0.rc.3

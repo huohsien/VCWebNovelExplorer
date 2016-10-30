@@ -7,22 +7,19 @@
 //
 
 #import "ViewController.h"
-#import "WKWebViewJavascriptBridge.h"
-
-NSString* const baseUrl = @"http://www.hjwzw.com/";
+#import "VCChapterTextViewController.h"
 
 @interface ViewController ()
-
-@property WKWebViewJavascriptBridge* bridge;
 
 @end
 
 @implementation ViewController {
-    NSMutableArray *_chapterList;
+    VCWebNovelDownloader *_downloader;
+    NSArray *_chapterArray;
+    NSString *_text;
 }
 
-@synthesize bookName = _bookName;
-@synthesize wkWebView = _wkWebView;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,140 +28,76 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
     self.searchTextField.layer.cornerRadius = 8.0f;
     self.searchTextField.layer.borderColor = [UIColor grayColor].CGColor;
     [self.view setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-    if (_bridge) { return; }
 
-    _wkWebView = [[WKWebView alloc] initWithFrame:CGRectZero];
-    _wkWebView.navigationDelegate = self;
-    
-    NSURL *nsurl=[NSURL URLWithString:baseUrl];
-    NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
-    [_wkWebView loadRequest:nsrequest];
-
-    
 }
 
-#pragma mark - WKNavigationDelegates
-
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    VCLOG();
-}
-
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    VCLOG();
-    if (_bookName == nil) {
-        return;
-    }
-//    [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
-//        VCLOG(@"source code = %@", result);
-//    }];
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    VCLOG(@"url=%@", webView.URL);
-    
-    if ([webView.URL.absoluteString isEqualToString:baseUrl]) {
+    if ([segue.identifier isEqualToString:@"toVCChapterTextViewController"]) {
         
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('top1_Txt_Keywords').value = '%@'", _bookName] completionHandler:^(NSString *result, NSError *error) {
-            
-            [webView evaluateJavaScript:@"Search('#top1_Txt_Keywords')" completionHandler:^(NSString *result, NSError *error) {
-                VCLOG(@"search book");
-            }];
-        }];
+        VCChapterTextViewController  *viewController = segue.destinationViewController;
+        viewController.text = _text;
     }
-    
-    if ([webView.URL.absoluteString containsString:@"Book"] && ![webView.URL.absoluteString containsString:@"Chapter"]) {
-        VCLOG(@"book found");
-        [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
-            NSString *relativePath = [self getRelativeLinkToBookChapterFromSource:result];
-            if (relativePath) {
-                VCLOG(@"go to content list");
-                NSString *link = [NSString stringWithFormat:@"%@%@", baseUrl, relativePath];
-                NSURL *nsurl=[NSURL URLWithString:link];
-                NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
-                [webView loadRequest:nsrequest];
-            }
-        }];
+}
 
-    }
+#pragma mark - table view
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_chapterArray count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    if ([webView.URL.absoluteString containsString:@"Book"] && [webView.URL.absoluteString containsString:@"Chapter"]) {
-        VCLOG(@"list chapters");
+    if (_chapterArray.count > 0) {
         
-        _chapterList = [NSMutableArray new];
-        [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
-            VCLOG(@"parse entry of chapter");
-            NSRegularExpression *regex = [NSRegularExpression
-                                          regularExpressionWithPattern:@"<a href=\"/Book/Read/[0-9]*,[0-9]*.*</a>"
-                                          options:NSRegularExpressionCaseInsensitive
-                                          error:&error];
-            [regex enumerateMatchesInString:result options:0 range:NSMakeRange(0, [result length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
-               
-                NSRange range = [match rangeAtIndex:0];
-                NSString *entry = [result substringWithRange:range];
-//                VCLOG(@"entry = %@", entry);
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[self getPathFromString:entry], @"relative path", [self getChapterTitleFromString:entry], @"title", nil];
-                [_chapterList addObject:dict];
-//                VCLOG(@"path = %@", [self getPathFromString:entry]);
-//                VCLOG(@"chapter title = %@", [self getChapterTitleFromString:entry]);
-            }];
-            NSLog(@"%@", _chapterList);
-        }];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.backgroundView = nil;
+        return 1;
+        
+    } else {
+        
+        CGFloat padding = 4.0;
+        
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, self.view.bounds.size.width - 2 * padding, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No Data";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        return 0;
     }
 }
 
--(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    VCLOG(@"error code = %ld", (long)error.code);
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *chapterTableIdentifier = @"chapterTableIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:chapterTableIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:chapterTableIdentifier];
+    }
+    NSDictionary *dict = [_chapterArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [dict objectForKey:@"title"];
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSUInteger chapterIndex = indexPath.row;
+    [_downloader downloadChapterNumber:chapterIndex];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (NSString *)getRelativeLinkToBookChapterFromSource:(NSString *)sourceString {
-    
-    NSError *error = nil;
-    __block NSString *relativeLink;
-    NSRegularExpression *regex = [NSRegularExpression
-                                  regularExpressionWithPattern:@"/Book/Chapter/[0-9]*"
-                                  options:NSRegularExpressionCaseInsensitive
-                                  error:&error];
-    
-    [regex enumerateMatchesInString:sourceString options:0 range:NSMakeRange(0, [sourceString length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
-        NSRange range = [match rangeAtIndex:0];
-        relativeLink = [sourceString substringWithRange:range];
-    }];
-    return relativeLink;
-}
-
-- (NSString *)getPathFromString:(NSString *)string {
-    
-    NSError *error = nil;
-    __block NSString *path;
-    NSRegularExpression *regex = [NSRegularExpression
-                                  regularExpressionWithPattern:@"<a\\s+href=\"([^\"]+)"
-                                  options:NSRegularExpressionCaseInsensitive
-                                  error:&error];
-    
-    [regex enumerateMatchesInString:string options:0 range:NSMakeRange(0, [string length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
-        NSRange range = [match rangeAtIndex:1];
-        path = [string substringWithRange:range];
-    }];
-    return path;
-}
-
-- (NSString *)getChapterTitleFromString:(NSString *)string {
-    
-    NSError *error = nil;
-    __block NSString *chapterTitle;
-    NSRegularExpression *regex = [NSRegularExpression
-                                  regularExpressionWithPattern:@">(.*?)</a>"
-                                  options:NSRegularExpressionCaseInsensitive
-                                  error:&error];
-    
-    [regex enumerateMatchesInString:string options:0 range:NSMakeRange(0, [string length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
-        NSRange range = [match rangeAtIndex:1];
-        chapterTitle = [string substringWithRange:range];
-    }];
-    return chapterTitle;
-}
 #pragma mark - text field delegates
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -183,9 +116,29 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
 - (IBAction)searchButtonClicked:(id)sender {
     VCLOG();
     
-    _bookName = self.searchTextField.text;
-    [_wkWebView reload];
+    NSString *bookName = self.searchTextField.text;
+    _downloader = [VCWebNovelDownloader downloadBookNamed:bookName];
+    [_downloader setDelegate:self];
     [self.view endEditing:YES];
+}
+
+#pragma mark - VCWebNovelDownloaderDelegate
+
+- (void)downloader:(VCWebNovelDownloader *)downloader didFinishRetrieveChapterList:(NSArray *)chapterList {
+
+//    NSLog(@"chapter list = %@", chapterList);
+    _chapterArray = chapterList;
+    [self.tableView reloadData];
+}
+
+- (void)downloader:(VCWebNovelDownloader *)downloader didFailRetrieveChapterListWithError:(NSError *)error {
+    VCLOG(@"error = %@", error.debugDescription);
+}
+
+-(void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterContent:(NSString *)chapterContent {
+
+    _text = chapterContent;
+    [self performSegueWithIdentifier:@"toVCChapterTextViewController" sender:self];
 }
 
 @end
