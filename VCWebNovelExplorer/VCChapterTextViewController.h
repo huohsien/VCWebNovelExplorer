@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VCTextView.h"
 
 @interface VCChapterTextViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet VCTextView *textView;
 @property (strong, nonatomic) NSString *text;
 @end

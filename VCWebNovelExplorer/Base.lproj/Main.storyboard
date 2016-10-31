@@ -129,7 +129,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4p-DX-q3t">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4p-DX-q3t" customClass="VCTextView">
                                 <color key="backgroundColor" red="0.12172774869109948" green="0.12172774869109948" blue="0.12172774869109948" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" red="0.89873063917975571" green="0.89873063917975571" blue="0.89873063917975571" alpha="1" colorSpace="calibratedRGB"/>
@@ -139,10 +139,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="f4p-DX-q3t" firstAttribute="leading" secondItem="WBg-zC-4va" secondAttribute="leading" id="5ek-Y0-v0Y"/>
-                            <constraint firstItem="s3j-8T-cy6" firstAttribute="top" secondItem="f4p-DX-q3t" secondAttribute="bottom" id="dHW-BX-N8l"/>
-                            <constraint firstItem="f4p-DX-q3t" firstAttribute="top" secondItem="Ajn-F1-g0C" secondAttribute="bottom" id="pCN-7t-lQo"/>
-                            <constraint firstAttribute="trailing" secondItem="f4p-DX-q3t" secondAttribute="trailing" id="tiE-29-57V"/>
+                            <constraint firstAttribute="trailing" secondItem="f4p-DX-q3t" secondAttribute="trailing" id="V28-IR-Vnb"/>
+                            <constraint firstItem="f4p-DX-q3t" firstAttribute="top" secondItem="Ajn-F1-g0C" secondAttribute="bottom" id="bFB-Yg-gw4"/>
+                            <constraint firstItem="s3j-8T-cy6" firstAttribute="top" secondItem="f4p-DX-q3t" secondAttribute="bottom" id="g1n-8a-0IQ"/>
+                            <constraint firstItem="f4p-DX-q3t" firstAttribute="leading" secondItem="WBg-zC-4va" secondAttribute="leading" id="yAv-pc-PVa"/>
                         </constraints>
                     </view>
                     <connections>
