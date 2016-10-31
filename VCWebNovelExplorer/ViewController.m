@@ -38,12 +38,12 @@
     [self.searchTextField becomeFirstResponder];
     
     _indexOfSelectedRow = 0;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 
 }
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
@@ -130,8 +130,7 @@
     
     NSString *bookName = [VCTraditionalSimplifiedChineseExchanger getSimpleStringFromTraditionString:self.searchTextField.text];
     self.searchTextField.text = bookName;
-    _downloader = [VCWebNovelDownloader downloadBookNamed:bookName];
-    [_downloader setDelegate:self];
+    _downloader = [VCWebNovelDownloader downloadBookNamed:bookName withDelegate:self];
     [self.view endEditing:YES];
 }
 
@@ -154,6 +153,11 @@
 
     _text = chapterContent;
     [self performSegueWithIdentifier:@"toVCChapterTextViewController" sender:self];
+}
+
+-(void)downloader:(VCWebNovelDownloader *)downloader statusUpdateForIsLoading:(BOOL)isLoading {
+    
+    VCLOG(@"isLoading = %@", isLoading ? @"Yes" : @"No");
 }
 
 #pragma mark - tools

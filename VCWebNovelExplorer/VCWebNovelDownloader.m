@@ -17,15 +17,22 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
 @synthesize chapterList = _chapterList;
 @synthesize isLoading = _isLoading;
 
-- (instancetype)initWithBookNamed:(NSString *)bookName {
+- (instancetype)initWithBookNamed:(NSString *)bookName withDelegate:(id<VCWebNovelDownloaderDelegate>)delegate {
+    
     self = [super init];
+    
     if (self) {
-        
+
+        _delegate = delegate;
         _bookName = bookName;
         
         _wkWebView = [[WKWebView alloc] initWithFrame:CGRectZero];
         _wkWebView.navigationDelegate = self;
+//        [_wkWebView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+
         _isLoading = YES;
+        [self.delegate downloader:self statusUpdateForIsLoading:_isLoading];
+        
         NSURL *nsurl=[NSURL URLWithString:baseUrl];
         NSURLRequest *nsrequest = [NSURLRequest requestWithURL:nsurl];
         [_wkWebView loadRequest:nsrequest];
@@ -33,9 +40,30 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
     return self;
 }
 
-+ (instancetype)downloadBookNamed:(NSString *)bookName {
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//    if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == _wkWebView) {
+//        VCLOG(@"%f", _wkWebView.estimatedProgress);
+//        // estimatedProgress is a value from 0.0 to 1.0
+//        // Update your UI here accordingly
+//    }
+//    else {
+//        // Make sure to call the superclass's implementation in the else block in case it is also implementing KVO
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//    }
+//}
+//
+//- (void)dealloc {
+//    
+//    [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
+//    
+//    
+//    // if you have set either WKWebView delegate also set these to nil here
+//    [self.wkWebView setNavigationDelegate:nil];
+//}
+
++ (instancetype)downloadBookNamed:(NSString *)bookName  withDelegate:(id<VCWebNovelDownloaderDelegate>)delegate {
     
-    return [[self alloc] initWithBookNamed:bookName];
+    return [[self alloc] initWithBookNamed:bookName withDelegate:delegate];
 }
 
 - (void)downloadChapterNumber:(NSUInteger)number {
@@ -46,6 +74,8 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
     VCLOG(@"go to %@", link);
     
     _isLoading = YES;
+    [self.delegate downloader:self statusUpdateForIsLoading:_isLoading];
+
     NSURL *nsurl=[NSURL URLWithString:link];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];
@@ -122,8 +152,10 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
             }];
             
             _chapterList = [NSArray arrayWithArray:chapterList];
-            _isLoading = NO;
             
+            _isLoading = NO;
+            [self.delegate downloader:self statusUpdateForIsLoading:_isLoading];
+
             VCLOG(@"call the delegate function:didFinishRetrieveChapterList");
             [self.delegate downloader:self didFinishRetrieveChapterList:_chapterList];
         }];
@@ -137,6 +169,8 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
             VCLOG(@"strip content from the page and store it in a nsstring");
     
             _isLoading = NO;
+            [self.delegate downloader:self statusUpdateForIsLoading:_isLoading];
+
             [self.delegate downloader:self didDownloadChapterContent:[self getContentString:result]];
         }];
     
@@ -155,6 +189,8 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
     VCLOG(@"call delegate function downloader did Fail Retrieve Chapter List With Error");
     
     _isLoading = NO;
+    [self.delegate downloader:self statusUpdateForIsLoading:_isLoading];
+
     [self.delegate downloader:self encounterError:error];
 }
 
