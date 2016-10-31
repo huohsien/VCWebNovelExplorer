@@ -35,6 +35,7 @@
         #import <CocoaLumberjack/CocoaLumberjack.h>
         #import <UIKit/UIKit.h>
         #import <Foundation/Foundation.h>
+        #import "VCTool.h"
 
         #ifdef LOGGING_OFF
             static const DDLogLevel ddLogLevel = DDLogLevelOff;

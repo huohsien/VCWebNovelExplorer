@@ -146,7 +146,7 @@
 - (void)downloader:(VCWebNovelDownloader *)downloader encounterError:(NSError *)error {
     
     VCLOG(@"error = %@", error.debugDescription);
-    [self showAlertViewWithMessage:error.debugDescription];
+    [VCTool showAlertViewWithMessage:error.debugDescription];
 }
 
 -(void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterContent:(NSString *)chapterContent {
@@ -158,20 +158,12 @@
 -(void)downloader:(VCWebNovelDownloader *)downloader statusUpdateForIsLoading:(BOOL)isLoading {
     
     VCLOG(@"isLoading = %@", isLoading ? @"Yes" : @"No");
+    if (isLoading) {
+        [VCTool showActivityView];
+    } else {
+        [VCTool hideActivityView];
+    }
 }
 
-#pragma mark - tools
-
--(void) showAlertViewWithMessage:(NSString *)message {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    
-    [alertController addAction:okAction];
-    [alertController show];
-}
 
 @end
