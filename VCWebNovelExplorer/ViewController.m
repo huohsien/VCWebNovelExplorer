@@ -25,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     self.searchTextField.layer.borderWidth = 1.0f;
     self.searchTextField.layer.cornerRadius = 8.0f;
     self.searchTextField.layer.borderColor = [UIColor grayColor].CGColor;

@@ -18,6 +18,9 @@
     
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    
     BOOL selectable = self.textView.isSelectable;
     [self.textView setSelectable:YES];
     
@@ -29,6 +32,6 @@
 
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self.textView scrollRangeToVisible:NSMakeRange(0,0)];
+    [self.textView setContentOffset:CGPointZero animated:NO];
 }
 @end
