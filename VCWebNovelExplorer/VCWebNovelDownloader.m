@@ -15,6 +15,7 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
 @synthesize bookName = _bookName;
 @synthesize wkWebView = _wkWebView;
 @synthesize chapterList = _chapterList;
+@synthesize isLoading = _isLoading;
 
 - (instancetype)initWithBookNamed:(NSString *)bookName {
     self = [super init];
@@ -24,9 +25,9 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
         
         _wkWebView = [[WKWebView alloc] initWithFrame:CGRectZero];
         _wkWebView.navigationDelegate = self;
-        
+        _isLoading = YES;
         NSURL *nsurl=[NSURL URLWithString:baseUrl];
-        NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
+        NSURLRequest *nsrequest = [NSURLRequest requestWithURL:nsurl];
         [_wkWebView loadRequest:nsrequest];
     }
     return self;
@@ -43,6 +44,8 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
     NSString *path = [[_chapterList objectAtIndex:number] objectForKey:@"path"];
     NSString *link = [NSString stringWithFormat:@"%@%@", baseUrl, path];
     VCLOG(@"go to %@", link);
+    
+    _isLoading = YES;
     NSURL *nsurl=[NSURL URLWithString:link];
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
     [_wkWebView loadRequest:nsrequest];
@@ -51,36 +54,41 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
 #pragma mark - WKNavigationDelegates
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    
     VCLOG();
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    VCLOG();
+        
     if (_bookName == nil) {
         return;
     }
-//        [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
-//            VCLOG(@"source code = %@", result);
-//        }];
     
     VCLOG(@"url=%@", webView.URL);
     
     if ([webView.URL.absoluteString isEqualToString:baseUrl]) {
         
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('top1_Txt_Keywords').value = '%@'", _bookName] completionHandler:^(NSString *result, NSError *error) {
+        VCLOG(@"searching book");
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('top1_Txt_Keywords').value = '%@'; Search('#top1_Txt_Keywords');", _bookName] completionHandler:^(NSString *result, NSError *error) {
             
-            [webView evaluateJavaScript:@"Search('#top1_Txt_Keywords')" completionHandler:^(NSString *result, NSError *error) {
-                VCLOG(@"search book");
-            }];
+            
+            if (error) {
+                VCLOG(@"error = %@", error.debugDescription);
+            } else {
+                VCLOG(@"finish searching book");
+            }
+            
         }];
-    }
-    
-    if ([webView.URL.absoluteString containsString:@"Book"] && ![webView.URL.absoluteString containsString:@"Chapter"] && ![webView.URL.absoluteString containsString:@"Read"]) {
+    } else if ([webView.URL.absoluteString containsString:@"Book"] && ![webView.URL.absoluteString containsString:@"Chapter"] && ![webView.URL.absoluteString containsString:@"Read"]) {
+        
         VCLOG(@"book found");
         [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
+        
             NSString *relativePath = [self getRelativeLinkToBookChapterFromSource:result];
             if (relativePath) {
-                VCLOG(@"go to content list");
+            
+                VCLOG(@"found the link of the page that contains the chapter list of the book. navigate to that page");
+                
                 NSString *link = [NSString stringWithFormat:@"%@%@", baseUrl, relativePath];
                 NSURL *nsurl=[NSURL URLWithString:link];
                 NSURLRequest *nsrequest=[NSURLRequest requestWithURL:nsurl];
@@ -88,51 +96,66 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
             }
         }];
         
-    }
-    
-    if ([webView.URL.absoluteString containsString:@"Book/Chapter"]) {
-        VCLOG(@"list chapters");
+    } else if ([webView.URL.absoluteString containsString:@"Book/Chapter"]) {
+        
+        VCLOG(@"on the page that contains the chapter list");
         
         __block NSMutableArray *chapterList = [NSMutableArray new];
+        
         [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
-            VCLOG(@"parse entry of chapter");
+        
+            VCLOG(@"parse to find meta data of each chapter. store them in a plist structure");
+            
             NSRegularExpression *regex = [NSRegularExpression
                                           regularExpressionWithPattern:@"<a href=\"/Book/Read/[0-9]*,[0-9]*.*</a>"
                                           options:NSRegularExpressionCaseInsensitive
                                           error:&error];
+            
             [regex enumerateMatchesInString:result options:0 range:NSMakeRange(0, [result length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
                 
                 NSRange range = [match rangeAtIndex:0];
                 NSString *entry = [result substringWithRange:range];
-                //                VCLOG(@"entry = %@", entry);
                 NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[self getPathFromString:entry], @"path", [self getChapterTitleFromString:entry], @"title", [self getUpdateTimeFromString:entry], @"time", nil];
                 [chapterList addObject:dict];
-//                VCLOG(@"path = %@", [self getPathFromString:entry]);
-//                VCLOG(@"chapter title = %@", [self getChapterTitleFromString:entry]);
-//                VCLOG(@"update time = %@", [self getUpdateTimeFromString:entry]);
+
                 
             }];
+            
             _chapterList = [NSArray arrayWithArray:chapterList];
-            VCLOG(@"call delegate fuction downloader did finish retrieve chapter list");
+            _isLoading = NO;
+            
+            VCLOG(@"call the delegate function:didFinishRetrieveChapterList");
             [self.delegate downloader:self didFinishRetrieveChapterList:_chapterList];
         }];
-    }
-    
-    if ([webView.URL.absoluteString containsString:@"Book/Read"]) {
+        
+    } else if ([webView.URL.absoluteString containsString:@"Book/Read"]) {
+        
+        VCLOG(@"on the page that contains content of the requested chapter");
+
         [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
-            VCLOG(@"strip content string from the html");
-//            VCLOG(@"content = %@",[self getContentString:result]);
+        
+            VCLOG(@"strip content from the page and store it in a nsstring");
+    
+            _isLoading = NO;
             [self.delegate downloader:self didDownloadChapterContent:[self getContentString:result]];
         }];
+    
+    } else {
+        
+        VCLOG(@"on unknown state!!");
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"VCWebNovelDownloader is in an unknown state" forKey:@"description"];
+        NSError *error = [NSError errorWithDomain:@"VCWebNovelDownloader error" code:-1 userInfo:userInfo];
+        [self.delegate downloader:self encounterError:error];
 
     }
-    
 }
 
 -(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     
     VCLOG(@"call delegate function downloader did Fail Retrieve Chapter List With Error");
-    [self.delegate downloader:self didFailRetrieveChapterListWithError:error];
+    
+    _isLoading = NO;
+    [self.delegate downloader:self encounterError:error];
 }
 
 #pragma mark - parsing tools

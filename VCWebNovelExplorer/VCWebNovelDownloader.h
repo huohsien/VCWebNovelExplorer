@@ -13,7 +13,7 @@
 @protocol VCWebNovelDownloaderDelegate <NSObject>
 
 - (void)downloader:(VCWebNovelDownloader *)downloader didFinishRetrieveChapterList:(NSArray *)chapterList;
-- (void)downloader:(VCWebNovelDownloader *)downloader didFailRetrieveChapterListWithError:(NSError *)error;
+- (void)downloader:(VCWebNovelDownloader *)downloader encounterError:(NSError *)error;
 - (void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterContent:(NSString *)chapterContent;
 
 @end
@@ -23,6 +23,7 @@
 @property (strong, nonatomic) WKWebView *wkWebView;
 @property (strong, nonatomic) NSString *bookName;
 @property (strong, nonatomic) NSArray *chapterList;
+@property BOOL isLoading;
 @property (strong, nonatomic) id<VCWebNovelDownloaderDelegate>delegate;
 
 + (instancetype) downloadBookNamed:(NSString *)bookName;
