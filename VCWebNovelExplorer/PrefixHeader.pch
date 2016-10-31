@@ -33,6 +33,8 @@
     #ifdef __OBJC__
 
         #import <CocoaLumberjack/CocoaLumberjack.h>
+        #import <UIKit/UIKit.h>
+        #import <Foundation/Foundation.h>
 
         #ifdef LOGGING_OFF
             static const DDLogLevel ddLogLevel = DDLogLevelOff;

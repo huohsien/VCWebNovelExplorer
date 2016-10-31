@@ -126,7 +126,7 @@
                         <viewControllerLayoutGuide type="bottom" id="s3j-8T-cy6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WBg-zC-4va">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4p-DX-q3t" customClass="VCTextView">
@@ -136,16 +136,29 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11G-ZH-bdX">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="XNn-lK-Pr1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1217277487" green="0.1217277487" blue="0.1217277487" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="f4p-DX-q3t" secondAttribute="trailing" id="V28-IR-Vnb"/>
-                            <constraint firstItem="f4p-DX-q3t" firstAttribute="top" secondItem="Ajn-F1-g0C" secondAttribute="bottom" id="bFB-Yg-gw4"/>
-                            <constraint firstItem="s3j-8T-cy6" firstAttribute="top" secondItem="f4p-DX-q3t" secondAttribute="bottom" id="g1n-8a-0IQ"/>
-                            <constraint firstItem="f4p-DX-q3t" firstAttribute="leading" secondItem="WBg-zC-4va" secondAttribute="leading" id="yAv-pc-PVa"/>
+                            <constraint firstItem="s3j-8T-cy6" firstAttribute="top" secondItem="f4p-DX-q3t" secondAttribute="bottom" constant="28" id="57D-cF-Ke6"/>
+                            <constraint firstItem="11G-ZH-bdX" firstAttribute="trailing" secondItem="WBg-zC-4va" secondAttribute="trailingMargin" id="AA0-Hf-BnA"/>
+                            <constraint firstItem="11G-ZH-bdX" firstAttribute="leading" secondItem="WBg-zC-4va" secondAttribute="leadingMargin" id="NrZ-ZH-AS8"/>
+                            <constraint firstItem="f4p-DX-q3t" firstAttribute="top" secondItem="11G-ZH-bdX" secondAttribute="bottom" constant="6" id="OzU-b8-P13"/>
+                            <constraint firstItem="f4p-DX-q3t" firstAttribute="trailing" secondItem="WBg-zC-4va" secondAttribute="trailingMargin" id="VqY-HO-UeS"/>
+                            <constraint firstItem="11G-ZH-bdX" firstAttribute="top" secondItem="Ajn-F1-g0C" secondAttribute="bottom" constant="8" id="abV-oe-4Nr"/>
+                            <constraint firstItem="f4p-DX-q3t" firstAttribute="leading" secondItem="WBg-zC-4va" secondAttribute="leadingMargin" id="lgy-Zt-0vh"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="chapterTitleLabel" destination="11G-ZH-bdX" id="hEr-Fr-Gnf"/>
                         <outlet property="textView" destination="f4p-DX-q3t" id="kWp-YQ-oJ7"/>
                     </connections>
                 </viewController>

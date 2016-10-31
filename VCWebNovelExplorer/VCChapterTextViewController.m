@@ -30,22 +30,55 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
 
-    
+    // set text to text view
     BOOL selectable = self.textView.isSelectable;
     [self.textView setSelectable:YES];
     
-    self.textView.text = self.text;
+    NSMutableAttributedString *attrubutedString = [[NSMutableAttributedString alloc] initWithAttributedString:[self createAttributiedChapterContentStringFromString:self.text]];
+
+    self.textView.attributedText = attrubutedString;
     
     [self.textView setSelectable:selectable];
     
     [self.textView setResponder:self];
+    
+    // set text to label
+    [self.chapterTitleLabel setText:self.chapterTitle];
+    
+}
+
+-(NSAttributedString *) createAttributiedChapterContentStringFromString:(NSString *)string {
+    
+    CGFloat _textLineSpacing = 14.0;
+    CGFloat _charactersSpacing = 2.5;
+    CGFloat _chapterContentFontSize = 26.0;
+    
+    
+    NSMutableAttributedString *workingAttributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = _textLineSpacing;
+    paragraphStyle.firstLineHeadIndent = _chapterContentFontSize * 2.0 + _charactersSpacing * 3.0;
+    paragraphStyle.alignment = NSTextAlignmentJustified;
+    UIFont *font = [UIFont systemFontOfSize:_chapterContentFontSize];
+    //    UIFont *font = [UIFont fontWithName:@"STFangSong" size:_chapterContentFontSize];
+    
+    
+    UIColor *backgroundColor = [UIColor clearColor];
+    UIColor *foregroundColor = self.textView.textColor;
+    NSDictionary *attributionDict = @{NSParagraphStyleAttributeName : paragraphStyle , NSFontAttributeName : font, NSBackgroundColorAttributeName : backgroundColor, NSForegroundColorAttributeName : foregroundColor};
+    
+    [workingAttributedString addAttributes:attributionDict range:NSMakeRange(0, [string length])];
+    [workingAttributedString addAttribute:NSKernAttributeName value:@(_charactersSpacing) range:NSMakeRange(0, [string length])];
+    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithAttributedString:workingAttributedString];
+    return attributedString;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.hidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationController.navigationBar setTranslucent:YES];
 
     [self showStatusBar:NO];
@@ -109,38 +142,27 @@
 
 -(void) toggleBars {
     
-    CGRect frame = self.navigationController.navigationBar.bounds;
-    
     if (self.navigationController.navigationBar.hidden == YES) {
         // show bars
         
-        self.navigationController.navigationBar.hidden = NO;
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
         
-        // prepare the animation for both the navi and the tool bars appearing from outside visible screen
-        [self.navigationController.navigationBar setFrame:CGRectMake(0, -20 - frame.size.height, frame.size.width, frame.size.height)];
-        
-        [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
             [self showStatusBar:YES];
-            [self.navigationController.navigationBar setFrame:CGRectMake(0, 20, frame.size.width, frame.size.height)];
             
         } completion:nil];
         
     } else {
         //hide bars
         
-        // prepare the animation for both the navi and the tool bars disappearing from the visible screen
-        [self.navigationController.navigationBar setFrame:CGRectMake(0, 20, frame.size.width, frame.size.height)];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
         
-        [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
             [self showStatusBar:NO];
-            [self.navigationController.navigationBar setFrame:CGRectMake(0,  -frame.size.height - 20, frame.size.width, frame.size.height)];
             
-        } completion:^(BOOL finished) {
-            self.navigationController.navigationBar.hidden = YES;
-            
-        }];
+        } completion:nil];
     }
     
     

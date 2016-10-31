@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "VCChapterTextViewController.h"
 #import "VCTraditionalSimplifiedChineseExchanger.h"
+#import "UIAlertController+Window.h"
 
 @interface ViewController ()
 
@@ -18,6 +19,7 @@
     VCWebNovelDownloader *_downloader;
     NSArray *_chapterArray;
     NSString *_text;
+    long _indexOfSelectedRow;
 }
 
 
@@ -34,6 +36,8 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.searchTextField becomeFirstResponder];
+    
+    _indexOfSelectedRow = 0;
 
 }
 
@@ -47,6 +51,7 @@
         
         VCChapterTextViewController  *viewController = segue.destinationViewController;
         viewController.text = _text;
+        viewController.chapterTitle = [[_chapterArray objectAtIndex:_indexOfSelectedRow] objectForKey:@"title"];
     }
 }
 
@@ -98,6 +103,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     NSUInteger chapterIndex = indexPath.row;
+    _indexOfSelectedRow = chapterIndex;
     [_downloader downloadChapterNumber:chapterIndex];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -138,14 +144,30 @@
     [self.tableView reloadData];
 }
 
-- (void)downloader:(VCWebNovelDownloader *)downloader didFailRetrieveChapterListWithError:(NSError *)error {
+- (void)downloader:(VCWebNovelDownloader *)downloader encounterError:(NSError *)error {
+    
     VCLOG(@"error = %@", error.debugDescription);
+    [self showAlertViewWithMessage:error.debugDescription];
 }
 
 -(void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterContent:(NSString *)chapterContent {
 
     _text = chapterContent;
     [self performSegueWithIdentifier:@"toVCChapterTextViewController" sender:self];
+}
+
+#pragma mark - tools
+
+-(void) showAlertViewWithMessage:(NSString *)message {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    
+    [alertController addAction:okAction];
+    [alertController show];
 }
 
 @end

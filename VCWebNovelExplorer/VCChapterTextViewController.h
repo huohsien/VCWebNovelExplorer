@@ -12,4 +12,6 @@
 @interface VCChapterTextViewController : UIViewController
 @property (weak, nonatomic) IBOutlet VCTextView *textView;
 @property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic) NSString *chapterTitle;
+@property (weak, nonatomic) IBOutlet UILabel *chapterTitleLabel;
 @end

@@ -10,6 +10,7 @@
 		663C4A821DC69F27001A4C04 /* VCChapterTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663C4A811DC69F27001A4C04 /* VCChapterTextViewController.m */; };
 		663C4A851DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 663C4A841DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.m */; };
 		669AC7681DC6C8940085DCFD /* VCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 669AC7671DC6C8940085DCFD /* VCTextView.m */; };
+		669AC76C1DC76BB20085DCFD /* UIAlertController+window.m in Sources */ = {isa = PBXBuildFile; fileRef = 669AC76B1DC76BB20085DCFD /* UIAlertController+window.m */; };
 		66B3653C1DB73A5500ED7601 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B3653B1DB73A5500ED7601 /* main.m */; };
 		66B3653F1DB73A5500ED7601 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B3653E1DB73A5500ED7601 /* AppDelegate.m */; };
 		66B365421DB73A5500ED7601 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B365411DB73A5500ED7601 /* ViewController.m */; };
@@ -29,6 +30,8 @@
 		663C4A841DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTraditionalSimplifiedChineseExchanger.m; sourceTree = "<group>"; };
 		669AC7661DC6C8940085DCFD /* VCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCTextView.h; sourceTree = "<group>"; };
 		669AC7671DC6C8940085DCFD /* VCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTextView.m; sourceTree = "<group>"; };
+		669AC76A1DC76BB20085DCFD /* UIAlertController+Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Window.h"; sourceTree = "<group>"; };
+		669AC76B1DC76BB20085DCFD /* UIAlertController+window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+window.m"; sourceTree = "<group>"; };
 		66B365371DB73A5500ED7601 /* VCWebNovelExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VCWebNovelExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B3653B1DB73A5500ED7601 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66B3653D1DB73A5500ED7601 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -76,6 +79,26 @@
 			name = "view controllers";
 			sourceTree = "<group>";
 		};
+		669AC7691DC76B9B0085DCFD /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				669AC76A1DC76BB20085DCFD /* UIAlertController+Window.h */,
+				669AC76B1DC76BB20085DCFD /* UIAlertController+window.m */,
+				663C4A831DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.h */,
+				663C4A841DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.m */,
+			);
+			name = tools;
+			sourceTree = "<group>";
+		};
+		669AC76D1DC76CCD0085DCFD /* class */ = {
+			isa = PBXGroup;
+			children = (
+				66DE3FB51DC640D100C4161E /* VCWebNovelDownloader.h */,
+				66DE3FB61DC640D100C4161E /* VCWebNovelDownloader.m */,
+			);
+			name = class;
+			sourceTree = "<group>";
+		};
 		66B3652E1DB73A5500ED7601 = {
 			isa = PBXGroup;
 			children = (
@@ -101,10 +124,8 @@
 				669AC7671DC6C8940085DCFD /* VCTextView.m */,
 				66B3653D1DB73A5500ED7601 /* AppDelegate.h */,
 				66B3653E1DB73A5500ED7601 /* AppDelegate.m */,
-				66DE3FB51DC640D100C4161E /* VCWebNovelDownloader.h */,
-				66DE3FB61DC640D100C4161E /* VCWebNovelDownloader.m */,
-				663C4A831DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.h */,
-				663C4A841DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.m */,
+				669AC76D1DC76CCD0085DCFD /* class */,
+				669AC7691DC76B9B0085DCFD /* tools */,
 				663C4A861DC6A8FB001A4C04 /* view controllers */,
 				66B365431DB73A5500ED7601 /* Main.storyboard */,
 				66B365461DB73A5500ED7601 /* Assets.xcassets */,
@@ -257,6 +278,7 @@
 			files = (
 				66B365421DB73A5500ED7601 /* ViewController.m in Sources */,
 				663C4A821DC69F27001A4C04 /* VCChapterTextViewController.m in Sources */,
+				669AC76C1DC76BB20085DCFD /* UIAlertController+window.m in Sources */,
 				663C4A851DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.m in Sources */,
 				66B3653F1DB73A5500ED7601 /* AppDelegate.m in Sources */,
 				66B3653C1DB73A5500ED7601 /* main.m in Sources */,
