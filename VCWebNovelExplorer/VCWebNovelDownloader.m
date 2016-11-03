@@ -64,8 +64,7 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
 //    [self.wkWebView setNavigationDelegate:nil];
 //}
 
-+ (instancetype)downloadBookNamed:(NSString *)bookName  withDelegate:(id<VCWebNovelDownloaderDelegate>)delegate {
-    
++ (instancetype)downloaderWithBookNamed:(NSString *)bookName  withDelegate:(id<VCWebNovelDownloaderDelegate>)delegate {
     return [[self alloc] initWithBookNamed:bookName withDelegate:delegate];
 }
 

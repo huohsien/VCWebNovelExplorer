@@ -130,7 +130,7 @@
     
     NSString *bookName = [VCTraditionalSimplifiedChineseExchanger getSimpleStringFromTraditionString:self.searchTextField.text];
     self.searchTextField.text = bookName;
-    _downloader = [VCWebNovelDownloader downloadBookNamed:bookName withDelegate:self];
+    _downloader = [VCWebNovelDownloader downloaderWithBookNamed:bookName withDelegate:self];
     [self.view endEditing:YES];
 }
 
@@ -149,11 +149,12 @@
     [VCTool showAlertViewWithMessage:error.debugDescription];
 }
 
--(void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterContent:(NSString *)chapterContent {
+- (void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterNumber:(int)chapterNumber andContent:(NSString *)chapterContent {
 
     _text = chapterContent;
     [self performSegueWithIdentifier:@"toVCChapterTextViewController" sender:self];
 }
+
 
 -(void)downloader:(VCWebNovelDownloader *)downloader statusUpdateForIsLoading:(BOOL)isLoading {
     

@@ -27,7 +27,8 @@
 @property BOOL isLoading;
 @property (strong, nonatomic) id<VCWebNovelDownloaderDelegate>delegate;
 
-+ (instancetype)downloadBookNamed:(NSString *)bookName  withDelegate:(id<VCWebNovelDownloaderDelegate>)delegate;
++ (instancetype)downloaderWithBookNamed:(NSString *)bookName  withDelegate:(id<VCWebNovelDownloaderDelegate>)delegate;
+- (void) downloadBook;
 - (void) downloadChapterNumber:(NSUInteger)number;
 
 @end
