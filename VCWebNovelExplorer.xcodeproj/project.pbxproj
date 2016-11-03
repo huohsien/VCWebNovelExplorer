@@ -31,6 +31,7 @@
 		663C4A841DC6A739001A4C04 /* VCTraditionalSimplifiedChineseExchanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTraditionalSimplifiedChineseExchanger.m; sourceTree = "<group>"; };
 		663CFA0D1DC796D300346918 /* VCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCTool.h; sourceTree = "<group>"; };
 		663CFA0E1DC796D300346918 /* VCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTool.m; sourceTree = "<group>"; };
+		6656654B1DC8EC160046ED2A /* VCWebNovelExplorer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VCWebNovelExplorer.entitlements; sourceTree = "<group>"; };
 		669AC7661DC6C8940085DCFD /* VCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCTextView.h; sourceTree = "<group>"; };
 		669AC7671DC6C8940085DCFD /* VCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTextView.m; sourceTree = "<group>"; };
 		669AC76A1DC76BB20085DCFD /* UIAlertController+Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Window.h"; sourceTree = "<group>"; };
@@ -125,6 +126,7 @@
 		66B365391DB73A5500ED7601 /* VCWebNovelExplorer */ = {
 			isa = PBXGroup;
 			children = (
+				6656654B1DC8EC160046ED2A /* VCWebNovelExplorer.entitlements */,
 				669AC7661DC6C8940085DCFD /* VCTextView.h */,
 				669AC7671DC6C8940085DCFD /* VCTextView.m */,
 				66B3653D1DB73A5500ED7601 /* AppDelegate.h */,
@@ -194,6 +196,11 @@
 					66B365361DB73A5500ED7601 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = ZWQWGRSN4T;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -406,6 +413,7 @@
 			baseConfigurationReference = EEDC29204F9287BE2A3DDCC2 /* Pods-VCWebNovelExplorer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VCWebNovelExplorer/VCWebNovelExplorer.entitlements;
 				DEVELOPMENT_TEAM = ZWQWGRSN4T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = VCWebNovelExplorer/PrefixHeader.pch;
@@ -421,6 +429,7 @@
 			baseConfigurationReference = F21DE1DCD93E3E49AFCC821E /* Pods-VCWebNovelExplorer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VCWebNovelExplorer/VCWebNovelExplorer.entitlements;
 				DEVELOPMENT_TEAM = ZWQWGRSN4T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = VCWebNovelExplorer/PrefixHeader.pch;

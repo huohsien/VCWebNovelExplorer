@@ -14,7 +14,7 @@
 
 - (void)downloader:(VCWebNovelDownloader *)downloader didFinishRetrieveChapterList:(NSArray *)chapterList;
 - (void)downloader:(VCWebNovelDownloader *)downloader encounterError:(NSError *)error;
-- (void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterContent:(NSString *)chapterContent;
+- (void)downloader:(VCWebNovelDownloader *)downloader didDownloadChapterNumber:(int)chapterNumber andContent:(NSString *)chapterContent;
 - (void)downloader:(VCWebNovelDownloader *)downloader statusUpdateForIsLoading:(BOOL)isLoading;
 
 @end

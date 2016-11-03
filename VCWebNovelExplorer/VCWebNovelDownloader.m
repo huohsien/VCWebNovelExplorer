@@ -10,7 +10,9 @@
 
 NSString* const baseUrl = @"http://www.hjwzw.com/";
 
-@implementation VCWebNovelDownloader
+@implementation VCWebNovelDownloader {
+    int _currentDownloadingChapterNumber;
+}
 
 @synthesize bookName = _bookName;
 @synthesize wkWebView = _wkWebView;
@@ -25,6 +27,7 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
 
         _delegate = delegate;
         _bookName = bookName;
+        _currentDownloadingChapterNumber = -1;
         
         _wkWebView = [[WKWebView alloc] initWithFrame:CGRectZero];
         _wkWebView.navigationDelegate = self;
@@ -69,6 +72,9 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
 - (void)downloadChapterNumber:(NSUInteger)number {
 
     if (number > _chapterList.count - 1) return;
+    
+    _currentDownloadingChapterNumber = (int)number;
+    
     NSString *path = [[_chapterList objectAtIndex:number] objectForKey:@"path"];
     NSString *link = [NSString stringWithFormat:@"%@%@", baseUrl, path];
     VCLOG(@"go to %@", link);
@@ -98,6 +104,8 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
     
     if ([webView.URL.absoluteString isEqualToString:baseUrl]) {
         
+        _currentDownloadingChapterNumber = -1;
+
         VCLOG(@"searching book");
         [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('top1_Txt_Keywords').value = '%@'; Search('#top1_Txt_Keywords');", _bookName] completionHandler:^(NSString *result, NSError *error) {
             
@@ -111,6 +119,8 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
         }];
     } else if ([webView.URL.absoluteString containsString:@"Book"] && ![webView.URL.absoluteString containsString:@"Chapter"] && ![webView.URL.absoluteString containsString:@"Read"]) {
         
+        _currentDownloadingChapterNumber = -1;
+
         VCLOG(@"book found");
         [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(NSString *result, NSError *error) {
         
@@ -128,6 +138,8 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
         
     } else if ([webView.URL.absoluteString containsString:@"Book/Chapter"]) {
         
+        _currentDownloadingChapterNumber = -1;
+
         VCLOG(@"on the page that contains the chapter list");
         
         __block NSMutableArray *chapterList = [NSMutableArray new];
@@ -171,7 +183,7 @@ NSString* const baseUrl = @"http://www.hjwzw.com/";
             _isLoading = NO;
             [self.delegate downloader:self statusUpdateForIsLoading:_isLoading];
 
-            [self.delegate downloader:self didDownloadChapterContent:[self getContentString:result]];
+            [self.delegate downloader:self didDownloadChapterNumber:_currentDownloadingChapterNumber andContent:[self getContentString:result]];
         }];
     
     } else {
