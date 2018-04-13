@@ -8,12 +8,11 @@
 
 #import "VCWebNovelDownloader.h"
 
-NSString* const baseUrl = @"http://www.hjwzw.com/";
+NSString* const baseUrl = @"https://www.hjwzw.com/";
 
 @implementation VCWebNovelDownloader {
     int _currentDownloadingChapterNumber;
 }
-
 @synthesize bookName = _bookName;
 @synthesize wkWebView = _wkWebView;
 @synthesize chapterList = _chapterList;
